@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors Game</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #fcd1f2, #d1c4e9);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff0fb;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(172, 100, 205, 0.3);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #6a1b9a;
+      margin-bottom: 0;
+    }
+
+    .emoji-row {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .choices button {
+      font-size: 2rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      background-color: #e1bee7;
+      color: #4a148c;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .choices button:hover {
+      background-color: #ce93d8;
+    }
+
+    .result {
+      font-size: 1.2rem;
+      color: #4a148c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rock Paper Scissors Game</h1>
+    <div class="emoji-row">✊ 🖐 ✌</div>
+
+    <div class="scoreboard">
+      <p>You: <span id="user-score">0</span></p>
+      <p>Computer: <span id="computer-score">0</span></p>
+    </div>
+
+    <div class="choices">
+      <button onclick="play('rock')">✊</button>
+      <button onclick="play('paper')">🖐</button>
+      <button onclick="play('scissors')">✌</button>
+    </div>
+
+    <div class="result">
+      <p id="result-text">Make your move!</p>
+    </div>
+  </div>
+
+  <script>
+    let userScore = 0;
+    let computerScore = 0;
+
+    function play(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+      const resultText = document.getElementById('result-text');
+      const userScoreSpan = document.getElementById('user-score');
+      const computerScoreSpan = document.getElementById('computer-score');
+
+      if (userChoice === computerChoice) {
+        resultText.textContent = `It's a draw! You both chose ${userChoice}.`;
+      } else if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        userScore++;
+        userScoreSpan.textContent = userScore;
+        resultText.textContent = `You win! ${userChoice} beats ${computerChoice}.`;
+      } else {
+        computerScore++;
+        computerScoreSpan.textContent = computerScore;
+        resultText.textContent = `You lose! ${computerChoice} beats ${userChoice}.`;
+      }
+    }
+  </script>
+</body>
+</html>
